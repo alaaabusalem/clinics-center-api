@@ -1,5 +1,7 @@
 using clinics_api.Data;
 using clinics_api.Models;
+using clinics_api.Models.Interfaces;
+using clinics_api.Models.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +22,8 @@ namespace clinics_api
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
                 options.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<ClinicsDbContext>();
+            builder.Services.AddTransient<IUser, UserService>();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
