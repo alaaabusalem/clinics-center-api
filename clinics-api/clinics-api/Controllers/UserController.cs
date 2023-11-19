@@ -1,5 +1,6 @@
 ﻿using clinics_api.Models.DTOs;
 using clinics_api.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,8 @@ namespace clinics_api.Controllers
         }
 
 
-        [HttpPost] 
+        [HttpPost]
+        [Authorize]
         public async Task<IActionResult> RegisterUser([FromBody] RegesterUserDto regesterUserDto)
         {
             if(!this.ModelState.IsValid) { return BadRequest(); }

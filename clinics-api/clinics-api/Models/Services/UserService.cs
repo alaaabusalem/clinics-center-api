@@ -8,9 +8,12 @@ namespace clinics_api.Models.Services
     public class UserService : IUser
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        public UserService(UserManager<ApplicationUser> userManager)
+        private readonly JwtTokenService _jwtTokenService;  
+        public UserService(UserManager<ApplicationUser> userManager, JwtTokenService jwtTokenService)
         {
-            _userManager = userManager; 
+            _userManager = userManager;
+            _jwtTokenService = jwtTokenService; 
+
         }
         public async Task<userAuth> Login(LoginDto user)
         {
@@ -20,8 +23,9 @@ namespace clinics_api.Models.Services
 
             if (userResult!= null && await _userManager.CheckPasswordAsync(userResult,user.password)) {
                 var userauth = (userAuth)userResult;
-
+                string token = await _jwtTokenService.GetToken(userResult, TimeSpan.FromDays(1));
                 userauth.isAuth=true;
+                userauth.token=token;
                 return userauth;
             }
             

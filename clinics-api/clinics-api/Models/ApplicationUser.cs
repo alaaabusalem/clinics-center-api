@@ -6,6 +6,8 @@ namespace clinics_api.Models
 {
     public class ApplicationUser:IdentityUser
     {
+        public Doctor? doctor { get; set; }
+        public List<Appointment> appointments { get; set; }
 
 
 
