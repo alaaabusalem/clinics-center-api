@@ -69,11 +69,11 @@ namespace clinics_api.Data
             var admin = new ApplicationUser
             {
                 Id = "1",
-                UserName = "AdminAlaa",
-                NormalizedUserName = "ADMINALAA",
+                UserName = "adminAlaa",
+                NormalizedUserName = "ADMIN",
                 Email = "adminalaa@hotmail.com",
                 PhoneNumber = "1234567890",
-                NormalizedEmail = "ADMINALAA@EXAMPLE.COM",
+                NormalizedEmail = "adminalaa@HOTMAIL.COM",
                 EmailConfirmed = true,
                 LockoutEnabled = false
             };

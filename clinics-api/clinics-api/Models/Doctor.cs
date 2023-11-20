@@ -1,4 +1,6 @@
-﻿namespace clinics_api.Models
+﻿using clinics_api.Models.DTOs;
+
+namespace clinics_api.Models
 {
     public class Doctor
     {
@@ -27,6 +29,27 @@
         public Location? location { get; set; }
 
         public ApplicationUser? ApplicationUser { get; }
+
+
+        public static explicit operator Doctor(RegesterDoctorUserDto app)
+        {
+            return new Doctor
+            {
+                Name = app.name,
+                Phone = app.PhoneNumber,
+                Gender=app.Gender,
+                Img=app.Img,
+                Specialization = app.Specialization,
+                LocationDetailes=app.LocationDetailes,
+                OpeningTime=app.OpeningTime,    
+                CloseTime=app.CloseTime,
+                Description=app.Description,
+                fees=app.fees,
+                DepartmentId=app.DepartmentId,
+                LocationId=app.LocationId,
+                IsDisabal=false
+            };
+        }
     }
 
 }

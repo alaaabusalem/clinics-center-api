@@ -23,5 +23,16 @@ namespace clinics_api.Models
 
             };
         }
+
+        public static explicit operator ApplicationUser(RegesterDoctorUserDto app)
+        {
+            return new ApplicationUser
+            {
+                UserName = app.name,
+                Email = app.Email,
+                PhoneNumber = app.PhoneNumber,
+
+            };
+        }
     }
 }

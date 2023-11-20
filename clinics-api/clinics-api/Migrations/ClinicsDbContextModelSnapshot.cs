@@ -91,18 +91,18 @@ namespace clinics_api.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7f8eb7b6-44f4-4157-a361-39b9ec8035b2",
+                            ConcurrencyStamp = "61433dfd-9ee1-42ee-97d1-310c8adbb2c2",
                             Email = "adminalaa@hotmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "ADMINALAA@EXAMPLE.COM",
-                            NormalizedUserName = "ADMINALAA",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHAQHQ3A+RNYLRNPQx9CNu5P8MJ7HKFNYcnzF8XtSVIVEMNPrRijThgpmHUoo44Sgg==",
+                            NormalizedEmail = "adminalaa@HOTMAIL.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIIClieSeJ+wN6xrmBvazzSwAEsRkx4RHA8YZ1ARDXm+H7JFVHMPLYYogc8OQoy/lA==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a7893c7d-12ec-463b-9f65-13695a2ae724",
+                            SecurityStamp = "8d93ef1f-ec26-4cda-87dd-fa929e58baf9",
                             TwoFactorEnabled = false,
-                            UserName = "AdminAlaa"
+                            UserName = "adminAlaa"
                         });
                 });
 
