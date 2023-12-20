@@ -1,8 +1,9 @@
-﻿using clinics_api.Models.DTOs;
-using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿
 
-namespace clinics_api.Models
+using clinics_api.services.Model.DTOs;
+using Microsoft.AspNetCore.Identity;
+
+namespace clinics_api.services.Model.Models
 {
     public class ApplicationUser:IdentityUser
     {

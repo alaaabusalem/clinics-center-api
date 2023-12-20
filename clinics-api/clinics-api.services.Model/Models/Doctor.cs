@@ -1,6 +1,7 @@
-﻿using clinics_api.Models.DTOs;
+﻿
+using clinics_api.services.Model.DTOs;
 
-namespace clinics_api.Models
+namespace clinics_api.services.Model.Models
 {
     public class Doctor
     {

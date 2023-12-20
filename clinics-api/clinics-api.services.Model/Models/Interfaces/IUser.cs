@@ -1,7 +1,7 @@
-﻿using clinics_api.Models.DTOs;
+﻿using clinics_api.services.Model.DTOs;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace clinics_api.Models.Interfaces
+namespace clinics_api.services.Model.Interfaces
 {
     public interface IUser
     {

@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿
+using clinics_api.services.Model.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
-namespace clinics_api.Models.Services
+namespace clinics_api.services.Model.Services
 {
     public class JwtTokenService
     {

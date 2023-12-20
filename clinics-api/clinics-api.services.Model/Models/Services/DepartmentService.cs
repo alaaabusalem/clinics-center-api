@@ -1,9 +1,10 @@
-﻿using clinics_api.Data;
-using clinics_api.Models.DTOs;
-using clinics_api.Models.Interfaces;
+﻿using clinics_api.sevices.DataAccess.Data;
+using clinics_api.services.Model.DTOs;
+using clinics_api.services.Model.Interfaces;
+using clinics_api.services.Model.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace clinics_api.Models.Services
+namespace clinics_api.services.Model.Services
 {
     public class DepartmentService : IDepartment
     {

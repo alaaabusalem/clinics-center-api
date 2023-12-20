@@ -1,12 +1,11 @@
-﻿using clinics_api.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
+﻿using clinics_api.services.Model.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
-namespace clinics_api.Data
+namespace clinics_api.sevices.DataAccess.Data
 {
-    public class ClinicsDbContext: IdentityDbContext<ApplicationUser>
+    public class ClinicsDbContext : IdentityDbContext<ApplicationUser>
     {
         public ClinicsDbContext(DbContextOptions options):base(options)
         {

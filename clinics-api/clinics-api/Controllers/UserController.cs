@@ -1,5 +1,6 @@
-﻿using clinics_api.Models.DTOs;
-using clinics_api.Models.Interfaces;
+﻿
+using clinics_api.services.Model.DTOs;
+using clinics_api.services.Model.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

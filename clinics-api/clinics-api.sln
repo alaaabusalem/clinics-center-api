@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clinics-api", "clinics-api\clinics-api.csproj", "{D5A46273-E227-493C-B0AC-2176D955894F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "clinics-api", "clinics-api\clinics-api.csproj", "{D5A46273-E227-493C-B0AC-2176D955894F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clinics-api.sevices.DataAccess", "clinics-api.sevices.DataAccess\clinics-api.sevices.DataAccess.csproj", "{E96C3886-C454-4A97-8804-95EB5E2CB962}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clinics-api.services.Model", "clinics-api.services.Model\clinics-api.services.Model.csproj", "{D9C47C63-930C-4202-9B4E-B5F26B13C9E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{D5A46273-E227-493C-B0AC-2176D955894F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5A46273-E227-493C-B0AC-2176D955894F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5A46273-E227-493C-B0AC-2176D955894F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E96C3886-C454-4A97-8804-95EB5E2CB962}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E96C3886-C454-4A97-8804-95EB5E2CB962}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E96C3886-C454-4A97-8804-95EB5E2CB962}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E96C3886-C454-4A97-8804-95EB5E2CB962}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9C47C63-930C-4202-9B4E-B5F26B13C9E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9C47C63-930C-4202-9B4E-B5F26B13C9E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9C47C63-930C-4202-9B4E-B5F26B13C9E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9C47C63-930C-4202-9B4E-B5F26B13C9E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

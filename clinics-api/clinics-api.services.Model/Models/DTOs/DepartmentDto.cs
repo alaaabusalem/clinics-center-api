@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using clinics_api.services.Model.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace clinics_api.Models.DTOs
+namespace clinics_api.services.Model.DTOs
 {
     public class DepartmentDto
     {

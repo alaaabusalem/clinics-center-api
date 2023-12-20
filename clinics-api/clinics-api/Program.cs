@@ -1,11 +1,12 @@
-﻿using clinics_api.Data;
-using clinics_api.Models;
-using clinics_api.Models.Interfaces;
-using clinics_api.Models.Services;
+﻿
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using clinics_api.Controllers;
+using clinics_api.sevices.DataAccess.Data;
+using clinics_api.services.Model.Models;
+using clinics_api.services.Model.Services;
+using clinics_api.services.Model.Interfaces;
 
 namespace clinics_api
 {
@@ -61,8 +62,7 @@ namespace clinics_api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
-                        if (app.Environment.IsDevelopment())
+ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();

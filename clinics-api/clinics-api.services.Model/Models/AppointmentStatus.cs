@@ -1,4 +1,4 @@
-﻿namespace clinics_api.Models
+﻿namespace clinics_api.services.Model.Models
 {
     public class AppointmentStatus
     {
