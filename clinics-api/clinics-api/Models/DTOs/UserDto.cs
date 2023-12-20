@@ -60,6 +60,57 @@ namespace clinics_api.Models.DTOs
 
 
     }
+    public class RegesterDoctorUserDto
+    {
+        [Required]
+
+        public string name { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+
+        [Required]
+
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        public string password { get; set; }
+        [Required]
+
+        public string Gender { get; set; }
+        [Required]
+
+        public string Img { get; set; }
+        [Required]
+
+        public string Specialization { get; set; }
+        [Required]
+
+        public string LocationDetailes { get; set; }
+        [Required]
+
+        public TimeSpan OpeningTime { get; set; }
+        [Required]
+
+        public TimeSpan CloseTime { get; set; }
+        [Required]
+
+        public string Description { get; set; }
+        [Required]
+
+        public string fees { get; set; }
+        [Required]
+
+        public int DepartmentId { get; set; }
+        [Required]
+
+        public int LocationId { get; set; }
+        [Required]
+
+        public string UserId { get; set; }
+    }
 
 
 }

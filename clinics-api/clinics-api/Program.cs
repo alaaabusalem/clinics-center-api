@@ -1,10 +1,11 @@
-using clinics_api.Data;
+﻿using clinics_api.Data;
 using clinics_api.Models;
 using clinics_api.Models.Interfaces;
 using clinics_api.Models.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using clinics_api.Controllers;
 
 namespace clinics_api
 {
@@ -28,6 +29,7 @@ namespace clinics_api
 
             builder.Services.AddTransient<IUser, UserService>();
             builder.Services.AddScoped<JwtTokenService>();
+            builder.Services.AddTransient<IDepartment, DepartmentService>();
 
 
 
@@ -60,12 +62,19 @@ namespace clinics_api
                 app.UseSwaggerUI();
             }
 
+                        if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+};
+
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
 
             app.MapControllers();
+
 
             app.Run();
         }

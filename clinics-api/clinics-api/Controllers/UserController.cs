@@ -18,15 +18,33 @@ namespace clinics_api.Controllers
 
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> RegisterUser([FromBody] RegesterUserDto regesterUserDto)
         {
             if(!this.ModelState.IsValid) { return BadRequest(); }
-          var result=  await _userDb.RegesterUser(regesterUserDto, this.ModelState);
+          var result=  await _userDb.RegesterUserOrManager(regesterUserDto, this.ModelState, "Patient");
             if (!this.ModelState.IsValid) { return BadRequest(new ValidationProblemDetails(ModelState)); }
-            return Ok(" Regester new user done succesfully");
+            return Ok(" Regester new Patient user done succesfully");
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RegisterAdmin([FromBody] RegesterUserDto regesterUserDto)
+        {
+            if (!this.ModelState.IsValid) { return BadRequest(); }
+            var result = await _userDb.RegesterUserOrManager(regesterUserDto, this.ModelState, "Admin");
+            if (!this.ModelState.IsValid) { return BadRequest(new ValidationProblemDetails(ModelState)); }
+            return Ok(" Regester new Admin user done succesfully");
+        }
+
+        [HttpPost]
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult> RegisterDoctor([FromBody] RegesterDoctorUserDto regesterDoctorUserDto)
+        {
+            if (!this.ModelState.IsValid) { return BadRequest(); }
+            var result = await _userDb.RegesterDoctor(regesterDoctorUserDto, this.ModelState);
+            if (!this.ModelState.IsValid) { return BadRequest(new ValidationProblemDetails(ModelState)); }
+            return Ok(" Regester new Doctor user done succesfully");
+        }
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
