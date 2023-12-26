@@ -19,6 +19,15 @@ namespace clinics_api
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
             builder.Services.AddDbContext<ClinicsDbContext>(options => options.UseSqlServer(connString));
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
@@ -52,7 +61,7 @@ namespace clinics_api
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
-
+            app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
             // Configure the HTTP request pipeline.

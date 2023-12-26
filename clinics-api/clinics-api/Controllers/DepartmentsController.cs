@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace clinics_api.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class DepartmentsController : ControllerBase
     {
@@ -16,11 +16,28 @@ namespace clinics_api.Controllers
             _Db = db;
         }
 
+        [Route("GetDepartments")]
+
         [HttpGet]
-        public async Task<IActionResult> GetDepartments() { 
-           return Ok(await _Db.GetDepartments());   
+        [Authorize(Roles = "Admin")]
+
+        public async Task<ActionResult<List<DepartmentDto>>> GetDepartments() { 
+           return await _Db.GetDepartments();   
                  
         }
+
+        [Route("GetLocations")]
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+
+        public async Task<ActionResult<List<LocationDto>>> GetLocations()
+        {
+            return await _Db.GetLocations();
+
+        }
+
+        [Route("GetDepartmentDoctors")]
 
         [HttpGet]
         public async Task<IActionResult> GetDepartmentDoctors(int id)
@@ -31,6 +48,7 @@ namespace clinics_api.Controllers
 
         }
 
+        [Route("CreateDepartment")]
         [Authorize(Roles ="Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateDepartment([FromBody] CreatDepartmentDto creatDepartmentDto)
@@ -38,9 +56,12 @@ namespace clinics_api.Controllers
             if(!this.ModelState.IsValid) { return BadRequest(); }
             var dep = await _Db.CreatDepartment(creatDepartmentDto);
             if (dep == false) return BadRequest();
-            return Ok("Department has been created");
+            return Ok();
 
         }
+
+        [Route("UpdateDepartment")]
+
         [Authorize(Roles = "Admin")]
 
         [HttpPut]
@@ -49,17 +70,18 @@ namespace clinics_api.Controllers
             if (!this.ModelState.IsValid) { return BadRequest(); }
             var dep = await _Db.UpdateDepartment(updateDepartmentDto,id);
             if (dep == false) return BadRequest();
-            return Ok("Department has been Updated");
+            return Ok();
 
         }
-        [Authorize(Roles = "Admin")]
 
+        [Route("UpdateDepartment")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task<IActionResult> DeleteDepartment(int id)
         {
             var dep = await _Db.DeleteDepartment(id);
             if (dep == false) return BadRequest();
-            return Ok("Department has been deleted");
+            return Ok();
 
         }
     }

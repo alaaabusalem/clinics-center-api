@@ -40,7 +40,7 @@ namespace clinics_api.Data
             // seed Location
             modelBuilder.Entity<Location>().HasData(
                    new Location {  LocationId= 1, LocationName = "Amman", IsDisabal = false },
-                   new Location { LocationId = 2, LocationName = "Amman,Alshmesani", IsDisabal = false },
+                   new Location { LocationId = 2, LocationName = "Amman,Alshmesani", IsDisabal = true },
                    new Location { LocationId = 3, LocationName = "Amman,Abdoun", IsDisabal = false },
                    new Location { LocationId = 5, LocationName = "Irbid", IsDisabal = false },
                    new Location { LocationId = 6, LocationName = "Zarqa", IsDisabal = false }
@@ -52,7 +52,7 @@ namespace clinics_api.Data
                    new Department { DepartmentId = 1, DepartmentName = "Cardiology", IsDisabal = false },
                    new Department { DepartmentId = 2, DepartmentName = "Nephrologist", IsDisabal = false },
                    new Department { DepartmentId = 3, DepartmentName = "Orthopedics", IsDisabal = false },
-                   new Department { DepartmentId = 5, DepartmentName = "Gynecology", IsDisabal = false },
+                   new Department { DepartmentId = 5, DepartmentName = "Gynecology", IsDisabal = true },
                    new Department { DepartmentId = 6, DepartmentName = "Pediatrics", IsDisabal = false }
 
                );

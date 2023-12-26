@@ -303,7 +303,7 @@ namespace clinics_api.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, "61433dfd-9ee1-42ee-97d1-310c8adbb2c2", "adminalaa@hotmail.com", true, false, null, "adminalaa@HOTMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEIIClieSeJ+wN6xrmBvazzSwAEsRkx4RHA8YZ1ARDXm+H7JFVHMPLYYogc8OQoy/lA==", "1234567890", false, "8d93ef1f-ec26-4cda-87dd-fa929e58baf9", false, "adminAlaa" });
+                values: new object[] { "1", 0, "c6a046a8-a00e-47ec-802a-b51c7ddb70ca", "adminalaa@hotmail.com", true, false, null, "adminalaa@HOTMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEGJWxMkc/0YAEwrJ3EdSxdgFMNpM31O4qWHsGQAmPOvdw4OjnhNcTY8OVlbBEyX49A==", "1234567890", false, "f568a61b-3ffa-412b-a8a6-020b8e555ab3", false, "adminAlaa" });
 
             migrationBuilder.InsertData(
                 table: "Departments",
@@ -313,7 +313,7 @@ namespace clinics_api.Migrations
                     { 1, "Cardiology", false },
                     { 2, "Nephrologist", false },
                     { 3, "Orthopedics", false },
-                    { 5, "Gynecology", false },
+                    { 5, "Gynecology", true },
                     { 6, "Pediatrics", false }
                 });
 
@@ -323,7 +323,7 @@ namespace clinics_api.Migrations
                 values: new object[,]
                 {
                     { 1, false, "Amman" },
-                    { 2, false, "Amman,Alshmesani" },
+                    { 2, true, "Amman,Alshmesani" },
                     { 3, false, "Amman,Abdoun" },
                     { 5, false, "Irbid" },
                     { 6, false, "Zarqa" }

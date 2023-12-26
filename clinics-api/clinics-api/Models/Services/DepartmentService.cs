@@ -43,7 +43,18 @@ namespace clinics_api.Models.Services
 
             return departments; 
         }
+        public async Task<List<LocationDto>> GetLocations()
+        {
+            var locations = await _Db.Locations.Select(loc => new LocationDto
+            {
+                LocationId = loc.LocationId,
+                LocationName = loc.LocationName,
+                IsDisabal = loc.IsDisabal,
 
+            }).ToListAsync();
+
+            return locations;
+        }
         public async Task<DepartmentDoctorsDto> GetDoctorDepartment(int id)
         {
             var depDoctors = await _Db.Departments.Select(dep=> new DepartmentDoctorsDto
@@ -57,6 +68,8 @@ namespace clinics_api.Models.Services
             if(depDoctors == null) return null;
             return depDoctors;
         }
+
+        
 
         public async Task<bool> UpdateDepartment(UpdateDepartmentDto updateDepartmentDto,int id)
         {

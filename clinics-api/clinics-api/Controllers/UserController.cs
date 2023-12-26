@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace clinics_api.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
+    //[Route("api/user")]
+
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -16,15 +18,16 @@ namespace clinics_api.Controllers
             _userDb = user;
         }
 
-
+        [Route("RegisterUser")]
         [HttpPost]
         public async Task<IActionResult> RegisterUser([FromBody] RegesterUserDto regesterUserDto)
         {
             if(!this.ModelState.IsValid) { return BadRequest(); }
           var result=  await _userDb.RegesterUserOrManager(regesterUserDto, this.ModelState, "Patient");
             if (!this.ModelState.IsValid) { return BadRequest(new ValidationProblemDetails(ModelState)); }
-            return Ok(" Regester new Patient user done succesfully");
+            return Ok();
         }
+        [Route("RegisterAdmin")]
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -33,24 +36,27 @@ namespace clinics_api.Controllers
             if (!this.ModelState.IsValid) { return BadRequest(); }
             var result = await _userDb.RegesterUserOrManager(regesterUserDto, this.ModelState, "Admin");
             if (!this.ModelState.IsValid) { return BadRequest(new ValidationProblemDetails(ModelState)); }
-            return Ok(" Regester new Admin user done succesfully");
+            return Ok();
         }
 
+        [Route("RegisterDoctor")]
+
         [HttpPost]
-        [Authorize(Roles ="Admin")]
-        public async Task<IActionResult> RegisterDoctor([FromBody] RegesterDoctorUserDto regesterDoctorUserDto)
+        //[Authorize(Roles ="Admin")]
+        public async Task<IActionResult> RegisterDoctor([FromForm] RegesterDoctorUserDto regesterDoctorUserDto)
         {
-            if (!this.ModelState.IsValid) { return BadRequest(); }
+           if (!this.ModelState.IsValid) { return BadRequest(); }
             var result = await _userDb.RegesterDoctor(regesterDoctorUserDto, this.ModelState);
             if (!this.ModelState.IsValid) { return BadRequest(new ValidationProblemDetails(ModelState)); }
-            return Ok(" Regester new Doctor user done succesfully");
+            return Ok();
         }
+        [Route("login")]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
             if (!this.ModelState.IsValid) { return BadRequest(); }
             var result = await _userDb.Login(loginDto);
-            if (!result.isAuth) { return BadRequest(result); }
+            if (result==null) { return BadRequest("Wrong Email Or Password"); }
             return Ok(result);
         }
     }

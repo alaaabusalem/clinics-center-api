@@ -25,19 +25,19 @@ namespace clinics_api.Models.Services
             
               var userResult=await _userManager.FindByEmailAsync(user.Email);
 
-            if (userResult!= null && await _userManager.CheckPasswordAsync(userResult,user.password)) {
+            if (userResult != null && await _userManager.CheckPasswordAsync(userResult, user.password)) {
                 var userauth = (userAuth)userResult;
-                string token = await _jwtTokenService.GetToken(userResult, TimeSpan.FromDays(1));
-                userauth.isAuth=true;
-                userauth.token=token;
+                string token = await _jwtTokenService.GetToken(userResult, TimeSpan.FromMinutes(30));
+                userauth.expired = DateTime.Now.AddMinutes(30);
+                userauth._token = token;
+                IList<string> list = await _userManager.GetRolesAsync(userResult);
+                userauth.role = list[0];
                 return userauth;
             }
-            
-            var userauthNotAuth = new userAuth();
-
-            userauthNotAuth.isAuth = false;
-            userauthNotAuth.message = "Wrong Email Or Passoword";
-            return userauthNotAuth;    
+            else {
+                return null;
+            }
+                
             
         }
 
@@ -56,7 +56,7 @@ namespace clinics_api.Models.Services
             {
                 var errorKey = error.Code.Contains("Password") ? nameof(user.password) :
                          error.Code.Contains("Email") ? nameof(user.Email) :
-                         error.Code.Contains("Username") ? nameof(user.name) :
+                         error.Code.Contains("UserName") ? nameof(user.name) :
                          error.Code.Contains("PhoneNumber") ? nameof(user.PhoneNumber) :
 
                          "";
@@ -75,11 +75,28 @@ namespace clinics_api.Models.Services
             {
                 await _userManager.AddToRoleAsync(appUser, "Doctor");
 
-                var doctor = (Doctor)user;
-                doctor.UserId = appUser.Id;
-                await _Db.Doctors.AddAsync(doctor);
-                await _Db.SaveChangesAsync();
-                return true;
+                if (user.Imgs != null && user.Imgs.Length != 0)
+                {
+                    // Generate a unique file name
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(user.Imgs.FileName);
+
+                    // Define the path where the file will be saved
+                    var filePath = Path.Combine("wwwroot/images", fileName);
+
+                    // Save the file to the specified path
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await user.Imgs.CopyToAsync(stream);
+                    }
+                    var doctor = (Doctor)user;
+                    doctor.Img = filePath;
+                    doctor.UserId = appUser.Id;
+                    await _Db.Doctors.AddAsync(doctor);
+                    await _Db.SaveChangesAsync();
+                    return true;
+                }
+
+          
 
             }
             foreach (var error in result.Errors)
