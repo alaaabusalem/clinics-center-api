@@ -10,6 +10,8 @@ namespace clinics_api.Models.Interfaces
         Task<bool> UpdateDepartment(UpdateDepartmentDto updateDepartmentDto,int id);
         Task<bool> DeleteDepartment( int id);
         Task<List<DepartmentDto>> GetDepartments ();
+        Task<List<LocationDto>> GetLocations();
+
         Task<DepartmentDoctorsDto> GetDoctorDepartment(int id);
 
 

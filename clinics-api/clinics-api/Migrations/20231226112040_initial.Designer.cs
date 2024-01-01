@@ -12,7 +12,7 @@ using clinics_api.Data;
 namespace clinics_api.Migrations
 {
     [DbContext(typeof(ClinicsDbContext))]
-    [Migration("20231119141116_initial")]
+    [Migration("20231226112040_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,16 +93,16 @@ namespace clinics_api.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "61433dfd-9ee1-42ee-97d1-310c8adbb2c2",
+                            ConcurrencyStamp = "c6a046a8-a00e-47ec-802a-b51c7ddb70ca",
                             Email = "adminalaa@hotmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "adminalaa@HOTMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIIClieSeJ+wN6xrmBvazzSwAEsRkx4RHA8YZ1ARDXm+H7JFVHMPLYYogc8OQoy/lA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGJWxMkc/0YAEwrJ3EdSxdgFMNpM31O4qWHsGQAmPOvdw4OjnhNcTY8OVlbBEyX49A==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8d93ef1f-ec26-4cda-87dd-fa929e58baf9",
+                            SecurityStamp = "f568a61b-3ffa-412b-a8a6-020b8e555ab3",
                             TwoFactorEnabled = false,
                             UserName = "adminAlaa"
                         });
@@ -250,7 +250,7 @@ namespace clinics_api.Migrations
                         {
                             DepartmentId = 5,
                             DepartmentName = "Gynecology",
-                            IsDisabal = false
+                            IsDisabal = true
                         },
                         new
                         {
@@ -360,7 +360,7 @@ namespace clinics_api.Migrations
                         new
                         {
                             LocationId = 2,
-                            IsDisabal = false,
+                            IsDisabal = true,
                             LocationName = "Amman,Alshmesani"
                         },
                         new
