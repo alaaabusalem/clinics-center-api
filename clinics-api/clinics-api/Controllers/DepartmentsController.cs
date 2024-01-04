@@ -19,7 +19,6 @@ namespace clinics_api.Controllers
         [Route("GetDepartments")]
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
 
         public async Task<ActionResult<List<DepartmentDto>>> GetDepartments() { 
            return await _Db.GetDepartments();   
@@ -29,7 +28,6 @@ namespace clinics_api.Controllers
         [Route("GetLocations")]
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
 
         public async Task<ActionResult<List<LocationDto>>> GetLocations()
         {

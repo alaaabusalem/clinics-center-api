@@ -39,6 +39,7 @@ namespace clinics_api
             builder.Services.AddTransient<IUser, UserService>();
             builder.Services.AddScoped<JwtTokenService>();
             builder.Services.AddTransient<IDepartment, DepartmentService>();
+            builder.Services.AddTransient<IDoctor, DoctorService>();
 
 
 
@@ -61,6 +62,8 @@ namespace clinics_api
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+            app.UseStaticFiles(); // This enables serving static files from the 'wwwroot' directory
+
             app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();

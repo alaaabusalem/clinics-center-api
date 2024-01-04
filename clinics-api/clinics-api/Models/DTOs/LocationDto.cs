@@ -6,4 +6,10 @@
         public string LocationName { get; set; }
         public bool IsDisabal { get; set; }
     }
+
+    public class LocationDoc
+    {
+        public string LocationName { get; set; }
+        
+    }
 }

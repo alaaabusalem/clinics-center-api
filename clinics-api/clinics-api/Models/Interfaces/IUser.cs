@@ -6,8 +6,10 @@ namespace clinics_api.Models.Interfaces
     public interface IUser
     {
         Task<bool> RegesterUserOrManager(RegesterUserDto user, ModelStateDictionary modelState,string role);
-        Task<bool> RegesterDoctor(RegesterDoctorUserDto user, ModelStateDictionary modelState);
+        Task<int> RegesterDoctor(RegesterDoctorUserDto user, ModelStateDictionary modelState);
         Task<userAuth> Login(LoginDto user);
+        Task<bool> RegesterDoctorImg(int doctorId,IFormFile imgForm);
+
 
     }
 }

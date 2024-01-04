@@ -80,9 +80,7 @@ namespace clinics_api.Models.DTOs
         [Required]
 
         public string Gender { get; set; }
-        [Required]
-
-        public IFormFile Imgs { get; set; }
+        
         [Required]
 
         public string Specialization { get; set; }
@@ -90,9 +88,13 @@ namespace clinics_api.Models.DTOs
 
         public string LocationDetailes { get; set; }
 
-        public TimeSpan? OpeningTime { get; set; }
+        [Required]
 
-        public TimeSpan? CloseTime { get; set; }
+        public string OpeningTime { get; set; }
+
+        [Required]
+
+        public string CloseTime { get; set; }
         [Required]
 
         public string Description { get; set; }

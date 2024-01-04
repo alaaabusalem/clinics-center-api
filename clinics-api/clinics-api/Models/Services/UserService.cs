@@ -3,6 +3,8 @@ using clinics_api.Models.DTOs;
 using clinics_api.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
+using System.Runtime.Intrinsics.Arm;
 
 namespace clinics_api.Models.Services
 {
@@ -12,20 +14,21 @@ namespace clinics_api.Models.Services
         private readonly JwtTokenService _jwtTokenService;
         private readonly ClinicsDbContext _Db;
 
-        public UserService(UserManager<ApplicationUser> userManager, JwtTokenService jwtTokenService,ClinicsDbContext db)
+        public UserService(UserManager<ApplicationUser> userManager, JwtTokenService jwtTokenService, ClinicsDbContext db)
         {
             _userManager = userManager;
-            _jwtTokenService = jwtTokenService; 
+            _jwtTokenService = jwtTokenService;
             _Db = db;
 
         }
         public async Task<userAuth> Login(LoginDto user)
         {
             if (user == null) return null;
-            
-              var userResult=await _userManager.FindByEmailAsync(user.Email);
 
-            if (userResult != null && await _userManager.CheckPasswordAsync(userResult, user.password)) {
+            var userResult = await _userManager.FindByEmailAsync(user.Email);
+
+            if (userResult != null && await _userManager.CheckPasswordAsync(userResult, user.password))
+            {
                 var userauth = (userAuth)userResult;
                 string token = await _jwtTokenService.GetToken(userResult, TimeSpan.FromMinutes(30));
                 userauth.expired = DateTime.Now.AddMinutes(30);
@@ -34,23 +37,25 @@ namespace clinics_api.Models.Services
                 userauth.role = list[0];
                 return userauth;
             }
-            else {
+            else
+            {
                 return null;
             }
-                
-            
+
+
         }
 
         public async Task<bool> RegesterUserOrManager(RegesterUserDto user, ModelStateDictionary modelState, string role)
         {
             var appUser = new ApplicationUser();
             //if(await _userManager.FindByEmailAsync(user.Email)=) { }
-             appUser = (ApplicationUser)user;
-           var result = await _userManager.CreateAsync(appUser,user.password);
-            if(result.Succeeded) {
+            appUser = (ApplicationUser)user;
+            var result = await _userManager.CreateAsync(appUser, user.password);
+            if (result.Succeeded)
+            {
                 await _userManager.AddToRoleAsync(appUser, role);
                 return true;
-            
+
             }
             foreach (var error in result.Errors)
             {
@@ -63,9 +68,9 @@ namespace clinics_api.Models.Services
 
                 modelState.AddModelError(errorKey, error.Description);
             }
-            return false;   
+            return false;
         }
-        public async Task<bool> RegesterDoctor(RegesterDoctorUserDto user, ModelStateDictionary modelState)
+        public async Task<int> RegesterDoctor(RegesterDoctorUserDto user, ModelStateDictionary modelState)
         {
             var appUser = new ApplicationUser();
             //if(await _userManager.FindByEmailAsync(user.Email)=) { }
@@ -75,28 +80,15 @@ namespace clinics_api.Models.Services
             {
                 await _userManager.AddToRoleAsync(appUser, "Doctor");
 
-                if (user.Imgs != null && user.Imgs.Length != 0)
-                {
-                    // Generate a unique file name
-                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(user.Imgs.FileName);
-
-                    // Define the path where the file will be saved
-                    var filePath = Path.Combine("wwwroot/images", fileName);
-
-                    // Save the file to the specified path
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await user.Imgs.CopyToAsync(stream);
-                    }
                     var doctor = (Doctor)user;
-                    doctor.Img = filePath;
+                    doctor.Img = "";
                     doctor.UserId = appUser.Id;
                     await _Db.Doctors.AddAsync(doctor);
                     await _Db.SaveChangesAsync();
-                    return true;
-                }
+                    return doctor.DoctorId;
+                
+               
 
-          
 
             }
             foreach (var error in result.Errors)
@@ -109,6 +101,32 @@ namespace clinics_api.Models.Services
                          "";
 
                 modelState.AddModelError(errorKey, error.Description);
+            }
+            return -1;
+        }
+
+        public async Task<bool> RegesterDoctorImg(int doctorId, IFormFile imgForm)
+        {
+
+            var doctor = await _Db.Doctors.FindAsync(doctorId);
+            if (doctor != null && imgForm != null && imgForm.Length != 0)
+            {
+                // Generate a unique file name
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imgForm.FileName);
+
+                // Define the path where the file will be saved
+                var filePath = Path.Combine("wwwroot/images", fileName);
+
+                // Save the file to the specified path
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imgForm.CopyToAsync(stream);
+                }
+                doctor.Img = fileName;
+                _Db.Entry(doctor).State = EntityState.Modified;
+                await _Db.SaveChangesAsync();
+                return true;
+
             }
             return false;
         }
