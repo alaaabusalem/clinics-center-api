@@ -40,6 +40,8 @@ namespace clinics_api
             builder.Services.AddScoped<JwtTokenService>();
             builder.Services.AddTransient<IDepartment, DepartmentService>();
             builder.Services.AddTransient<IDoctor, DoctorService>();
+            builder.Services.AddTransient<IAppointment, AppointmentService>();
+
 
 
 

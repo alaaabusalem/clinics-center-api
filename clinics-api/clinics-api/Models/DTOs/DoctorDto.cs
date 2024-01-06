@@ -2,6 +2,17 @@
 
 namespace clinics_api.Models.DTOs
 {
+
+    public class DoctorDto
+    {
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public string DepartmentName { get; set; }
+        public string fees { get; set; }
+        public string LocationName { get; set; }
+        public string LocationDetailes { get; set; }
+
+    }
     public class DoctorBookDto
     {
         public int DoctorId { get; set; }
