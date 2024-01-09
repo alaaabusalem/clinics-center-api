@@ -28,7 +28,8 @@ namespace clinics_api.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get the user's ID
 
             var result= await _Db.CreateAppointment(creatAppointmentDto, userId);
-            return result;
+            if (result) return Ok();
+            return BadRequest();
         }
 
         [Route("Client/appointments")]

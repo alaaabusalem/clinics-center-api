@@ -21,6 +21,9 @@ namespace clinics_api.Models.Services
             var doctor = await _Db.Doctors.FirstOrDefaultAsync(doc=> doc.DoctorId== creatAppointmentDto.DoctorId);
             if(doctor!=null && user != null)
             {
+                var appoint = await _Db.Appointments
+             .FirstOrDefaultAsync(app => app.DoctorId == doctor.DoctorId && app.Date == DateTime.Parse(creatAppointmentDto.Date)&& app.time== TimeSpan.Parse(creatAppointmentDto.time));
+                if (appoint != null) return false;
                 var appointment = (Appointment)creatAppointmentDto;
                 appointment.AppointmentStatusId = 1;
                 appointment.UserId=userId;
@@ -91,15 +94,10 @@ namespace clinics_api.Models.Services
                             AppointmentStatusId = app.AppointmentStatus.AppointmentStatusId,
                             name = app.AppointmentStatus.name,
                         },
-                        doctor= new DoctorDto()
-                        {
-                            Name= app.Doctor.Name,
-                            fees=app.Doctor.fees,
-                            LocationName=app.Doctor.location.LocationName,
-                            LocationDetailes=app.Doctor.LocationDetailes,
-                            DepartmentName=app.Doctor.department.DepartmentName,
-                            Phone=app.Doctor.Phone
-                        }
+                        
+                        DoctorName= app.Doctor.Name,
+                            
+                        
                     })
                     
                     .ToListAsync();

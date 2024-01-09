@@ -31,7 +31,7 @@ namespace clinics_api.Models.Services
             {
                 var userauth = (userAuth)userResult;
                 string token = await _jwtTokenService.GetToken(userResult, TimeSpan.FromMinutes(30));
-                userauth.expired = DateTime.Now.AddMinutes(30);
+                userauth.expired = DateTime.Now.AddMinutes(30).ToString("M/d/yyyy h:mm:ss tt");
                 userauth._token = token;
                 IList<string> list = await _userManager.GetRolesAsync(userResult);
                 userauth.role = list[0];

@@ -10,7 +10,8 @@
         public string time { get; set; }
         public int DoctorId { get; set; }
         public AppointmentStatusDto appointmentStatus { get; set; }
-        public DoctorDto doctor { get; set; }
+        //public DoctorDto doctor { get; set; }
+        public string DoctorName { get; set; }
 
     }
     public class DoctorAppointmentDto

@@ -59,7 +59,7 @@ namespace clinics_api.Models.DTOs
         public string name { get; set; }
         public string Email { get; set; }
         public string _token { get; set; }
-        public DateTime expired { get; set; }
+        public string expired { get; set; }
         public string role { get; set; }
 
         public static explicit operator userAuth(ApplicationUser app)
