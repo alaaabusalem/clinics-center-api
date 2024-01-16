@@ -63,18 +63,18 @@ namespace clinics_api.Controllers
 
             return BadRequest();
         }
-
-        [Route("RegisterDoctorImg/{doctorId}")]
+        ///{doctorId
+        [Route("RegisterDoctorImg")]
 
         [HttpPost]
-        public async Task<IActionResult> updateProfilePicture(int doctorId, IFormFile ImageFile)
+        public async Task<IActionResult> updateProfilePicture([FromBody] IFormFile img)
         {
-            if (ImageFile == null || ImageFile.Length == 0)
+            if (img == null || img.Length == 0)
             {
                 return BadRequest("The ImageFile field is required.");
             }
-            var result = await _userDb.RegesterDoctorImg(doctorId, ImageFile);
-            if (result) return Ok();
+           // var result = await _userDb.RegesterDoctorImg(doctorId, ImageFile);
+           // if (result) return Ok();
 
             return BadRequest();
 
