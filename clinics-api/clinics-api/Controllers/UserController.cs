@@ -1,8 +1,11 @@
-﻿using clinics_api.Models.DTOs;
+﻿using clinics_api.Models;
+using clinics_api.Models.DTOs;
 using clinics_api.Models.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace clinics_api.Controllers
 {
@@ -43,13 +46,40 @@ namespace clinics_api.Controllers
 
         [HttpPost]
         //[Authorize(Roles ="Admin")]
-        public async Task<IActionResult> RegisterDoctor([FromForm] RegesterDoctorUserDto regesterDoctorUserDto)
+        public async Task<ActionResult<int>> RegisterDoctor(string postDtoJson,IFormFile img)
         {
            if (!this.ModelState.IsValid) { return BadRequest(); }
-            var result = await _userDb.RegesterDoctor(regesterDoctorUserDto, this.ModelState);
+            var postDto = JsonConvert.DeserializeObject<RegesterDoctorUserDto>(postDtoJson);
+
+            var docId = await _userDb.RegesterDoctor(postDto, this.ModelState);
             if (!this.ModelState.IsValid) { return BadRequest(new ValidationProblemDetails(ModelState)); }
-            return Ok();
+            if(docId == -1) return BadRequest();
+            if (img == null || img.Length == 0)
+            {
+                return BadRequest("The ImageFile field is required.");
+            }
+            var result = await _userDb.RegesterDoctorImg(docId, img);
+            if (result) return docId;
+
+            return BadRequest();
         }
+        ///{doctorId
+        [Route("RegisterDoctorImg")]
+
+        [HttpPost]
+        public async Task<IActionResult> updateProfilePicture([FromBody] IFormFile img)
+        {
+            if (img == null || img.Length == 0)
+            {
+                return BadRequest("The ImageFile field is required.");
+            }
+           // var result = await _userDb.RegesterDoctorImg(doctorId, ImageFile);
+           // if (result) return Ok();
+
+            return BadRequest();
+
+        }
+
         [Route("login")]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)

@@ -4,6 +4,19 @@ namespace clinics_api.Models.DTOs
 {
     public class UserDto
     {
+        public string userId { get; set; }
+
+        public string name { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+
+        [Required]
+
+        public string PhoneNumber { get; set; }
+
     }
     public class RegesterUserDto
     {
@@ -46,7 +59,7 @@ namespace clinics_api.Models.DTOs
         public string name { get; set; }
         public string Email { get; set; }
         public string _token { get; set; }
-        public DateTime expired { get; set; }
+        public string expired { get; set; }
         public string role { get; set; }
 
         public static explicit operator userAuth(ApplicationUser app)
@@ -80,9 +93,7 @@ namespace clinics_api.Models.DTOs
         [Required]
 
         public string Gender { get; set; }
-        [Required]
-
-        public IFormFile Imgs { get; set; }
+        
         [Required]
 
         public string Specialization { get; set; }
@@ -90,9 +101,13 @@ namespace clinics_api.Models.DTOs
 
         public string LocationDetailes { get; set; }
 
-        public TimeSpan? OpeningTime { get; set; }
+        [Required]
 
-        public TimeSpan? CloseTime { get; set; }
+        public string OpeningTime { get; set; }
+
+        [Required]
+
+        public string CloseTime { get; set; }
         [Required]
 
         public string Description { get; set; }

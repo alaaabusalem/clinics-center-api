@@ -9,7 +9,11 @@ namespace clinics_api.Models.DTOs
         public bool IsDisabal { get; set; }
 
     }
+    public class DepartmentDoc
+    {
+        public string DepartmentName { get; set; }
 
+    }
     public class CreatDepartmentDto
     {
 

@@ -1,4 +1,6 @@
-﻿namespace clinics_api.Models
+﻿using clinics_api.Models.DTOs;
+
+namespace clinics_api.Models
 {
     public class Appointment
     {
@@ -18,8 +20,23 @@
 
         // nav props
         public Doctor? Doctor { get; set; }
-        public ApplicationUser? ApplicationUser { get; }
+        public ApplicationUser? ApplicationUser { get; set; }
         public AppointmentStatus ?AppointmentStatus { get; set; }
 
+
+        public static explicit operator Appointment(CreatAppointmentDto app)
+        {
+            return new Appointment
+            {
+                PatientName = app.PatientName,
+                PatientAge = app.PatientAge,
+                ContactNumber = app.ContactNumber,
+                time = SharedMethods.RoundToNearestQuarterHour(TimeSpan.Parse(app.time)),
+                Date = DateTime.Parse(app.Date),
+                DoctorId=app.DoctorId,
+            };
+        }
     }
+
+  
 }
