@@ -6,6 +6,8 @@ namespace clinics_api.Models.Interfaces
     {
         Task<bool> CreateAppointment(CreatAppointmentDto creatAppointmentDto, string userId );
         Task<List<AppointmentDto>> UserAppointments(string userId);
+        Task<AppointmentDto> UserAppointment(string userId,int appointmentIdd);
+
         Task<List<DoctorAppointmentDto>> DoctorAppointments(string userId);
         Task<UpdateAppointmentDto> GetDoctorAppointment(string userId, int appointmentIdd);
 
