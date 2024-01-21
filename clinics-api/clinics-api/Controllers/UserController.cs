@@ -45,7 +45,7 @@ namespace clinics_api.Controllers
         [Route("RegisterDoctor")]
 
         [HttpPost]
-        //[Authorize(Roles ="Admin")]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult<int>> RegisterDoctor(string postDtoJson,IFormFile img)
         {
            if (!this.ModelState.IsValid) { return BadRequest(); }
