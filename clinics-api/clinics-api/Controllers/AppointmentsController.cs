@@ -44,6 +44,19 @@ namespace clinics_api.Controllers
             var result = await _Db.UserAppointments(userId);
             return result;
         }
+
+        [Route("Client/appointment/{appointmentId}")]
+
+        [HttpGet]
+        [Authorize(Roles = "Patient")]
+
+        public async  Task<ActionResult<AppointmentDto>> GetClientAppointment(int appointmentId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get the user's ID
+
+            var result = await _Db.UserAppointment(userId,appointmentId);
+            return result;
+        }
         [Route("Doctor/appointments")]
 
         [HttpGet]

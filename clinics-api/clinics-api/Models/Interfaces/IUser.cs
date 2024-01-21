@@ -8,7 +8,7 @@ namespace clinics_api.Models.Interfaces
         Task<bool> RegesterUserOrManager(RegesterUserDto user, ModelStateDictionary modelState,string role);
         Task<int> RegesterDoctor(RegesterDoctorUserDto user, ModelStateDictionary modelState);
         Task<userAuth> Login(LoginDto user);
-        Task<bool> RegesterDoctorImg(int doctorId,IFormFile imgForm);
+        Task<bool> RegesterDoctorImg(int doctorId, IFormFile file);
 
 
     }

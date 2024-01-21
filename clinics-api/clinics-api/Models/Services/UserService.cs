@@ -1,4 +1,6 @@
-﻿using clinics_api.Data;
+﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using clinics_api.Data;
 using clinics_api.Models.DTOs;
 using clinics_api.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -13,12 +15,13 @@ namespace clinics_api.Models.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly JwtTokenService _jwtTokenService;
         private readonly ClinicsDbContext _Db;
-
-        public UserService(UserManager<ApplicationUser> userManager, JwtTokenService jwtTokenService, ClinicsDbContext db)
+        private readonly IConfiguration _configuration;
+        public UserService(UserManager<ApplicationUser> userManager, JwtTokenService jwtTokenService, ClinicsDbContext db,IConfiguration config)
         {
             _userManager = userManager;
             _jwtTokenService = jwtTokenService;
             _Db = db;
+            _configuration = config;
 
         }
         public async Task<userAuth> Login(LoginDto user)
@@ -105,30 +108,43 @@ namespace clinics_api.Models.Services
             return -1;
         }
 
-        public async Task<bool> RegesterDoctorImg(int doctorId, IFormFile imgForm)
+        public async Task<bool> RegesterDoctorImg(int doctorId, IFormFile file)
         {
+            // Create a public container
+            BlobContainerClient blobContainerClient = new BlobContainerClient(_configuration.GetConnectionString("StorageAccount"), "doctorimages");
+            blobContainerClient.CreateIfNotExists(PublicAccessType.Blob);
 
-            var doctor = await _Db.Doctors.FindAsync(doctorId);
-            if (doctor != null && imgForm != null && imgForm.Length != 0)
+            // Create if images container not exist 
+            await blobContainerClient.CreateIfNotExistsAsync();
+
+
+            BlobClient blobClient = blobContainerClient.GetBlobClient(file.FileName);
+
+            using var fileStream = file.OpenReadStream();
+
+            BlobUploadOptions blobUploadOptions = new BlobUploadOptions()
             {
-                // Generate a unique file name
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imgForm.FileName);
+                HttpHeaders = new BlobHttpHeaders { ContentType = file.ContentType }
+            };
 
-                // Define the path where the file will be saved
-                var filePath = Path.Combine("wwwroot/images", fileName);
+            if (!blobClient.Exists())
+            {
+                await blobClient.UploadAsync(fileStream, blobUploadOptions);
+            }
 
-                // Save the file to the specified path
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await imgForm.CopyToAsync(stream);
-                }
-                doctor.Img = fileName;
-                _Db.Entry(doctor).State = EntityState.Modified;
+            string img = "";
+            img = blobClient.Uri.ToString();
+            Doctor doctor = await _Db.Doctors.FindAsync(doctorId);
+            if (doctor != null)
+            {
+                doctor.Img = img;
                 await _Db.SaveChangesAsync();
                 return true;
-
             }
             return false;
         }
     }
-}
+
+   
+    }
+

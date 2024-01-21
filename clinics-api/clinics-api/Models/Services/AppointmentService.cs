@@ -172,6 +172,41 @@ namespace clinics_api.Models.Services
             return false;
         }
 
+        public async Task<AppointmentDto> UserAppointment(string userId, int appointmentIdd)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                var appointment = await _Db.Appointments
+                    .Where(appoin => appoin.UserId == user.Id&& appoin.AppointmentId== appointmentIdd)
+                    .Select(app => new AppointmentDto
+                    {
+                        AppointmentId = app.AppointmentId,
+                        PatientName = app.PatientName,
+                        ContactNumber = app.ContactNumber,
+                        PatientAge = app.PatientAge,
+                        Date = app.Date.ToString(),
+                        time = app.time.ToString(),
+                        DoctorId = app.DoctorId,
+                        Description = app.Description,
+                        Medicines = app.Medicines,
+                        appointmentStatus = new AppointmentStatusDto()
+                        {
+                            AppointmentStatusId = app.AppointmentStatus.AppointmentStatusId,
+                            name = app.AppointmentStatus.name,
+                        },
+
+                        DoctorName = app.Doctor.Name,
+                        DoctorPhone = app.Doctor.Phone
+
+
+                    })
+                   .FirstAsync();
+                return appointment;
+            }
+            return null;
+        }
+
         public async Task<List<AppointmentDto>> UserAppointments(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -189,6 +224,8 @@ namespace clinics_api.Models.Services
                         Date = app.Date.ToString(),
                         time = app.time.ToString(),
                         DoctorId = app.DoctorId,
+                        Description=app.Description,
+                        Medicines=app.Medicines,
                         appointmentStatus = new AppointmentStatusDto()
                         {
                             AppointmentStatusId = app.AppointmentStatus.AppointmentStatusId,
@@ -196,6 +233,7 @@ namespace clinics_api.Models.Services
                         },
 
                         DoctorName = app.Doctor.Name,
+                        DoctorPhone=app.Doctor.Phone
 
 
                     })
